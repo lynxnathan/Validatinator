@@ -43,9 +43,20 @@ describe("Validator Core", function() {
     it('callValidationMethodWithParameters should throw an error if the validation method doesn\'t exist, else a boolean value.', function() {
         var fakeValue = 'value';
 
-        expect(function() { validatinator.callValidationMethodWithParameters('required', undefined, fakeValue); }).not.toThrow("Validation does not exist: required");
-        expect(function() { validatinator.callValidationMethodWithParameters('min', ['5'], fakeValue); }).not.toThrow("Validation does not exist: min");
-        expect(function() { validatinator.callValidationMethodWithParameters('between', ['5', '20'], fakeValue); }).not.toThrow("Validation does not exist: between");
-        expect(function() { validatinator.callValidationMethodWithParameters('fakeValidation', ['FOO'], fakeValue); }).toThrow("Validation does not exist: fakeValidation");
+        expect(function() {
+            validatinator.callValidationMethodWithParameters('required', undefined, fakeValue);
+        }).not.toThrowError("Validation does not exist: required");
+
+        expect(function() {
+            validatinator.callValidationMethodWithParameters('min', ['5'], fakeValue);
+        }).not.toThrowError("Validation does not exist: min");
+
+        expect(function() {
+            validatinator.callValidationMethodWithParameters('between', ['1', '5'], fakeValue);
+        }).not.toThrowError("Validation does not exist: between");
+
+        expect(function() {
+            validatinator.callValidationMethodWithParameters('fakeValidation', ['FOO'], fakeValue);
+        }).toThrowError("Validation does not exist: fakeValidation");
     });
 });

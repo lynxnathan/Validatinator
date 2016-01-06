@@ -135,7 +135,7 @@ Validatinator.prototype.utils = {
         for (name in obj) {
             return false;
         }
-        
+
         return true;
     },
 

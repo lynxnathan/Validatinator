@@ -40,30 +40,30 @@ describe("Validatinator Utils", function() {
 
         expect(utils.convertStringToBoolean("FOO")).toEqual("FOO");
     });
-    
+
     it("isEmptyObject should return true if an object is empty, else false", function() {
         expect(utils.isEmptyObject({})).toBeTruthy();
-        expect(utils.isEmptyObject({"foo":"bar"})).toBeFalsy(); 
+        expect(utils.isEmptyObject({"foo":"bar"})).toBeFalsy();
     });
-    
+
     it("convertArrayValuesToEnglishString should return an English list of items; comma delimited", function() {
         expect(utils.convertArrayValuesToEnglishString(
             ["this", "should", "be", "right"]
         )).toEqual("this, should, be and right");
     });
-    
+
     it("isValueAnArray should return true if a value is truly an Array, else false", function() {
         expect(utils.isValueAnArray([])).toBeTruthy();
         expect(utils.isValueAnArray(new Array('test'))).toBeTruthy();
         expect(utils.isValueAnArray(new Array())).toBeTruthy();
-        
+
         expect(utils.isValueAnArray({})).toBeFalsy();
         expect(utils.isValueAnArray(12)).toBeFalsy();
         expect(utils.isValueAnArray(false)).toBeFalsy();
         expect(utils.isValueAnArray(true)).toBeFalsy();
         expect(utils.isValueAnArray("not an array")).toBeFalsy();
     });
-    
+
     describe('Set Test Form For Value Retrieval', function() {
         beforeEach(function() {
             // Creating our testing form.
@@ -74,7 +74,7 @@ describe("Validatinator Utils", function() {
             myForm.name = "my-form";
             firstName.name = "first-name";
             lastName.name = "last-name";
-            
+
             lastName.value = "test";
 
             document.body.appendChild(myForm);
@@ -85,12 +85,14 @@ describe("Validatinator Utils", function() {
             myForm.appendChild(firstName);
             myForm.appendChild(lastName);
         });
-        
+
         it('getFieldsValue should throw an error if there is no field to grab a value from, else return the field\'s value.', function() {
             expect(utils.getFieldsValue("my-form", "first-name")).toEqual("");
             expect(utils.getFieldsValue("my-form", "last-name")).toEqual("test");
 
-            expect(function() { utils.getFieldsValue("my-form", "some-fake-field"); }).toThrow("Couldn't find the field element some-fake-field for the form my-form.");
+            expect(function() {
+                utils.getFieldsValue("my-form", "some-fake-field");
+            }).toThrowError("Couldn't find the field element some-fake-field for the form my-form.");
         });
     });
 });
